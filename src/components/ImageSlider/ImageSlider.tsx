@@ -20,7 +20,7 @@ interface ImageSliderProps {
   previewCount?: number;
 }
 
-export const ImageSlider = memo(({ previewCount }: ImageSliderProps) => {
+export const ImageSlider = memo(({ previewCount=3 }: ImageSliderProps) => {
   const [cats, setCats] = useState<CatImage[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
@@ -115,17 +115,21 @@ export const ImageSlider = memo(({ previewCount }: ImageSliderProps) => {
         centeredSlides={true}
         slideToClickedSlide={true}
         breakpoints={{
+          300: {
+            slidesPerView: 1,
+            spaceBetween: 0,
+          },
           600: {
             slidesPerView: 1,
             spaceBetween: 0,
           },
           1000: {
-            slidesPerView: 2,
+            slidesPerView: 3,
             spaceBetween: 0,
           },
           1920: {
             slidesPerView: 3,
-            spaceBetween: 0,
+            spaceBetween: 5,
           },
         }}
       >
@@ -160,6 +164,16 @@ export const ImageSlider = memo(({ previewCount }: ImageSliderProps) => {
           slidesPerView={previewCount}
           grabCursor={true}
           className="thumb-swiper"
+          breakpoints={{
+            300: {
+              slidesPerView: 4,
+              spaceBetween: 0,
+            },
+            1000: {
+              slidesPerView: previewCount,
+              spaceBetween: 10,
+            }
+          }}
         >
           {cats?.map((slide, index) => (
             <SwiperSlide key={slide.id}>

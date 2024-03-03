@@ -1,8 +1,8 @@
 .lds-hourglass {
     display: inline-block;
     position: relative;
-    width: 67px;
-    height: 67px;
+    width: 5rem;
+    height: 5rem;
 }
 
 .lds-hourglass::after {
@@ -11,9 +11,9 @@
     border-radius: 50%;
     width: 0;
     height: 0;
-    margin: 15px;
+    margin:1.2rem;
     box-sizing: border-box;
-    border: 18px solid beige;
+    border: 1.4rem solid beige;
     border-color: beige transparent;
     animation: lds-hourglass 1.2s infinite;
 }
