@@ -20,7 +20,7 @@ interface ImageSliderProps {
   previewCount?: number;
 }
 
-export const ImageSlider = memo(({ previewCount=3 }: ImageSliderProps) => {
+export const ImageSlider = memo(({ previewCount = 3 }: ImageSliderProps) => {
   const [cats, setCats] = useState<CatImage[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
@@ -172,7 +172,7 @@ export const ImageSlider = memo(({ previewCount=3 }: ImageSliderProps) => {
             1000: {
               slidesPerView: previewCount,
               spaceBetween: 10,
-            }
+            },
           }}
         >
           {cats?.map((slide, index) => (

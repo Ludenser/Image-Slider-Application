@@ -1,10 +1,10 @@
 import React, {
-    MutableRefObject,
-    ReactNode,
-    useCallback,
-    useEffect,
-    useRef,
-    useState,
+  MutableRefObject,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
 } from "react";
 import { Mods, classNames } from "../../lib/classNames";
 import { Portal } from "../Portal/Portal";
@@ -74,7 +74,10 @@ export const Modal = (props: ModalProps) => {
 
   const handleOverlayMouseUp = useCallback(
     (e: React.MouseEvent) => {
-      if (closeOnClick || e.target === e.currentTarget && !clickStartedInside.current) {
+      if (
+        closeOnClick ||
+        (e.target === e.currentTarget && !clickStartedInside.current)
+      ) {
         closeHandler();
       }
       clickStartedInside.current = false;
