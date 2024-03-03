@@ -1,16 +1,16 @@
 *:active {
-  -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background: linear-gradient(to left, #f3904f, #3b4371);
-  margin: 0px;
+    background: linear-gradient(to left, #f3904f, #3b4371);
+    margin: 0px;
 }
 
 .App {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: calc(var(--vh, 1vh) * 100);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: calc(var(--vh, 1vh) * 100);
 }
