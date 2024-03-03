@@ -1,6 +1,6 @@
 .main-swiper {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 
   .swiper-slide {
     text-align: center;
@@ -27,8 +27,8 @@
     }
 
     img {
-      width: 37rem;
-      height: 42rem;
+      width: 70vw;
+      height: 50vh;
       border-radius: 2rem;
       object-fit: cover;
     }
@@ -75,7 +75,7 @@
 }
 
 .thumb-swiper {
-  width: 35vw;
+  width: 45vw;
 
   &.swiper {
     margin-left: 0;
@@ -104,7 +104,7 @@
 
     img {
       width: 100%;
-      height: 9vh;
+      height: 6vw;
       border-radius: 2.2rem;
       object-fit: cover;
     }
