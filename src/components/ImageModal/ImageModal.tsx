@@ -17,7 +17,7 @@ interface ModalProps {
   onClose?: () => void;
   lazy?: boolean;
   backgroundImageUrl?: string;
-  closeOnOverlayClick?: boolean;
+  closeOnClick?: boolean;
 }
 
 const ANIMATION_DELAY = 300;
@@ -30,7 +30,7 @@ export const Modal = (props: ModalProps) => {
     onClose,
     lazy,
     backgroundImageUrl,
-    closeOnOverlayClick = true,
+    closeOnClick = false,
   } = props;
 
   const [isOpening, setIsOpening] = useState(false);
@@ -74,27 +74,21 @@ export const Modal = (props: ModalProps) => {
 
   const handleOverlayMouseUp = useCallback(
     (e: React.MouseEvent) => {
-      if (
-        closeOnOverlayClick &&
-        e.target === e.currentTarget &&
-        !clickStartedInside.current
-      ) {
+      if (closeOnClick || e.target === e.currentTarget && !clickStartedInside.current) {
         closeHandler();
       }
       clickStartedInside.current = false;
     },
-    [closeHandler, closeOnOverlayClick]
+    [closeHandler, closeOnClick]
   );
 
   const handleContentMouseDown = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      if (!closeOnOverlayClick) {
-        cancelCloseAnimation();
-      }
+      cancelCloseAnimation();
       clickStartedInside.current = true;
     },
-    [cancelCloseAnimation, closeOnOverlayClick]
+    [cancelCloseAnimation]
   );
 
   const onContentClick = (e: React.MouseEvent) => {

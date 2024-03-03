@@ -57,10 +57,10 @@ export const ImageSlider = memo(({ previewCount }: ImageSliderProps) => {
   const handleLoadMore = useCallback(() => {
     if (!isQueryStarted) {
       setIsQueryStarted(true);
-    } else if (swiperRef?.current?.isEnd) {
+    } else if (swiperRef.current?.isEnd) {
       setIsStarted(true);
     }
-    if (isStarted && swiperRef?.current?.isEnd && !isFetching) {
+    if (isStarted && swiperRef.current?.isEnd && !isFetching) {
       fetchNewCat();
       setTimeout(() => swiperRef.current?.slideNext(), 1000);
     }
@@ -143,7 +143,7 @@ export const ImageSlider = memo(({ previewCount }: ImageSliderProps) => {
           isOpen={modalOpen}
           onClose={handleCloseModal}
           backgroundImageUrl={selectedCat}
-          closeOnOverlayClick={false}
+          closeOnClick={true}
         >
           <img src={selectedCat} alt="Selected Cat" />
         </Modal>
