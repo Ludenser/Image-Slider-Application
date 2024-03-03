@@ -62,7 +62,7 @@ export const ImageSlider = memo(({ previewCount=3 }: ImageSliderProps) => {
     }
     if (isStarted && swiperRef.current?.isEnd && !isFetching) {
       fetchNewCat();
-      setTimeout(() => swiperRef.current?.slideNext(), 1000);
+      setTimeout(() => swiperRef.current?.slideNext(), 500);
     }
   }, [fetchNewCat, isFetching, isQueryStarted, isStarted]);
 
