@@ -1,11 +1,11 @@
 .main-swiper {
   width: 100%;
-  margin-bottom: 50px;
+  padding-top: 40px;
 
   .swiper-slide {
     text-align: center;
     font-size: 18px;
-    background: #26213d;
+    background: none;
 
     display: flex;
     justify-content: center;
@@ -13,6 +13,7 @@
     opacity: 0;
     transform: translateY(0%) scale(.75) rotateY(30deg);
     transition: opacity 0.6s, transform 0.6s;
+
 
     &.swiper-slide-active {
       opacity: 1;
@@ -27,10 +28,12 @@
     }
 
     img {
-      width: 70vw;
+      width: 45rem;
       height: 50vh;
       border-radius: 2rem;
       object-fit: cover;
+      filter: drop-shadow(-53px 20px 24px rgb(34, 36, 34));
+    margin-bottom: 70px;
     }
   }
 }
@@ -62,6 +65,7 @@
 
     &:active {
       filter: drop-shadow(0px 3px 0px rgb(128, 128, 114));
+      opacity: 0.4;
     }
   }
 }
@@ -77,6 +81,7 @@
     }
     &:active {
       filter: drop-shadow(0px 3px 0px rgb(128, 128, 114));
+      opacity: 0.4;
     }
   }
 }
@@ -93,7 +98,7 @@
     width: 8rem;
     opacity: 0.4;
     transition: opacity 0.3s;
-    background: #26213d;
+    background: none;
 
     &:hover {
       opacity: 1;
