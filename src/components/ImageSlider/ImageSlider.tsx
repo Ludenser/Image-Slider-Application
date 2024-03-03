@@ -143,6 +143,7 @@ export const ImageSlider = memo(({ previewCount }: ImageSliderProps) => {
           isOpen={modalOpen}
           onClose={handleCloseModal}
           backgroundImageUrl={selectedCat}
+          closeOnOverlayClick={false}
         >
           <img src={selectedCat} alt="Selected Cat" />
         </Modal>
@@ -162,7 +163,7 @@ export const ImageSlider = memo(({ previewCount }: ImageSliderProps) => {
         >
           {cats?.map((slide, index) => (
             <SwiperSlide key={slide.id}>
-              <img src={slide.url} alt={`Thumbnail ${index}`} />
+              <img loading="lazy" src={slide.url} alt={`Thumb-${index}`} />
             </SwiperSlide>
           ))}
         </Swiper>

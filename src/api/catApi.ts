@@ -18,7 +18,7 @@ export const catApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: _API_BASE_URL_, headers: {'x-api-key':_API_KEY_}}),
   endpoints: (builder) => ({
     getCats: builder.query<CatImage[], number | undefined>({
-      query: (limit) => ({
+      query: (limit: number) => ({
         url: 'v1/images/search',
         params: {limit, size: 'medium'}
       }),
