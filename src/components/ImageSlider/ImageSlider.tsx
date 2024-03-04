@@ -11,7 +11,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import { Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
-import { CatImage, useGetCatsQuery, useGetOneCatQuery } from '../../api/catApi';
+import {
+    CatImage,
+    useGetCatsQuery,
+    useLazyGetOneCatQuery,
+} from '../../api/catApi';
 import { Modal } from '../ImageModal/ImageModal';
 import { Loader } from '../Loader/Loader';
 import './ImageSlider.scss';
@@ -24,8 +28,6 @@ export const ImageSlider = memo(({ previewCount = 3 }: ImageSliderProps) => {
     const [cats, setCats] = useState<CatImage[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
-    const [isQueryStarted, setIsQueryStarted] = useState(false);
-    const [isStarted, setIsStarted] = useState(false);
     const [selectedCat, setSelectedCat] = useState<string | null>(null);
 
     const prevRef = useRef<HTMLDivElement>(null);
@@ -34,19 +36,7 @@ export const ImageSlider = memo(({ previewCount = 3 }: ImageSliderProps) => {
     const [isProgress, setIsProgress] = useState(false);
 
     const { data: initialCats, isLoading: isInitLoading } = useGetCatsQuery(14);
-    const {
-        data: newCat,
-        refetch: fetchNewCat,
-        isFetching,
-    } = useGetOneCatQuery(undefined, {
-        skip: !isStarted,
-    });
-
-    useEffect(() => {
-        if (thumbsSwiper) {
-            thumbsSwiper.updateProgress();
-        }
-    }, [thumbsSwiper]);
+    const [trigger, { data: newCat, isFetching }] = useLazyGetOneCatQuery();
 
     useEffect(() => {
         if (initialCats) {
@@ -55,16 +45,10 @@ export const ImageSlider = memo(({ previewCount = 3 }: ImageSliderProps) => {
     }, [initialCats]);
 
     const handleLoadMore = useCallback(() => {
-        if (!isQueryStarted) {
-            setIsQueryStarted(true);
-        } else if (swiperRef.current?.isEnd) {
-            setIsStarted(true);
+        if (swiperRef.current?.isEnd) {
+            trigger();
         }
-        if (isStarted && swiperRef.current?.isEnd && !isFetching) {
-            fetchNewCat();
-            setTimeout(() => swiperRef.current?.slideNext(), 800);
-        }
-    }, [fetchNewCat, isFetching, isQueryStarted, isStarted]);
+    }, [trigger]);
 
     useEffect(() => {
         if (newCat && newCat.length > 0) {
@@ -76,14 +60,17 @@ export const ImageSlider = memo(({ previewCount = 3 }: ImageSliderProps) => {
         setModalOpen(false);
     };
 
-    const handleSlideClick = (e: BaseSyntheticEvent) => {
-        setIsProgress(false);
-        if (!isProgress) {
-            const imageUrl = e.target.src;
-            setSelectedCat(imageUrl);
-            setModalOpen(true);
-        }
-    };
+    const handleSlideClick = useCallback(
+        (e: BaseSyntheticEvent) => {
+            setIsProgress(false);
+            if (!isProgress) {
+                const imageUrl = e.target.src;
+                setSelectedCat(imageUrl);
+                setModalOpen(true);
+            }
+        },
+        [isProgress]
+    );
 
     if (isInitLoading) {
         return <Loader />;
@@ -97,7 +84,13 @@ export const ImageSlider = memo(({ previewCount = 3 }: ImageSliderProps) => {
                 onProgress={() => setIsProgress(true)}
                 onSlideNextTransitionEnd={() => setIsProgress(false)}
                 onSlidePrevTransitionEnd={() => setIsProgress(false)}
-                onNavigationNext={(e) => e.update()}
+                onSliderFirstMove={(e) => {
+                    e.on('toEdge', (e) => {
+                        console.log(e);
+
+                        handleLoadMore();
+                    });
+                }}
                 onSwiper={(swiper: SwiperClass) => {
                     swiperRef.current = swiper;
                     swiper.navigation.init();

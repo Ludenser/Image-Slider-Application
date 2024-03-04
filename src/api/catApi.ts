@@ -34,4 +34,5 @@ export const catApi = createApi({
     }),
 });
 
-export const { useGetCatsQuery, useGetOneCatQuery } = catApi;
+export const { useGetCatsQuery, useGetOneCatQuery, useLazyGetOneCatQuery } =
+    catApi;
