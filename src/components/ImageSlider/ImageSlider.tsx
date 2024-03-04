@@ -85,11 +85,7 @@ export const ImageSlider = memo(({ previewCount = 3 }: ImageSliderProps) => {
                 onSlideNextTransitionEnd={() => setIsProgress(false)}
                 onSlidePrevTransitionEnd={() => setIsProgress(false)}
                 onSliderFirstMove={(e) => {
-                    e.on('toEdge', (e) => {
-                        console.log(e);
-
-                        handleLoadMore();
-                    });
+                    e.on('toEdge', handleLoadMore);
                 }}
                 onSwiper={(swiper: SwiperClass) => {
                     swiperRef.current = swiper;
